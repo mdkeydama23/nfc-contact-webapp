@@ -3,7 +3,6 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, current_user, logout_user, login_required
 from app import db
 from app.models import User, TagID, ContactDetails
-from werkzeug.security import check_password_hash
 
 # Blueprint for user-related routes
 user_bp = Blueprint('user', __name__, url_prefix='/user')
@@ -36,7 +35,7 @@ def signup():
     If the form is submitted, validate the input and create a new user.
     """
     if current_user.is_authenticated:
-        return redirect(url_for('user.contact_details', username=current_user.username))
+        return redirect(url_for('user.user_dashboard', username=current_user.username))
 
     if request.method == 'POST':
         username = request.form.get('username')
@@ -87,7 +86,7 @@ def login():
         password = request.form.get('password')
         user = User.query.filter_by(username=username).first()
 
-        if user and check_password_hash(user.password, password):
+        if user and user.check_password(password=password):
             login_user(user)
             flash('Logged in successfully!', 'success')
             return redirect(url_for('user.user_dashboard'))

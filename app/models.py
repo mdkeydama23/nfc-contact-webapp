@@ -3,7 +3,7 @@
 from flask_login import UserMixin
 from app import db, login_manager
 from flask_bcrypt import Bcrypt
-from sqlalchemy import DateTime, UniqueConstraint
+from sqlalchemy import DateTime
 
 bcrypt = Bcrypt()
 

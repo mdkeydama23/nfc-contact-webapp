@@ -1,9 +1,7 @@
 # app/tag_routes.py
 from flask import Blueprint, flash, redirect, url_for
-from app import db
 from app.models import TagID, User
 from app.user_routes import signup
-import uuid
 
 # Blueprint for tag-related routes
 tag_bp = Blueprint('tag', __name__, url_prefix='/tag')
