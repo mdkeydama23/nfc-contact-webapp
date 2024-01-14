@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Details{% endblock %}
+
+{% block content %}
+    <h1>Contact Details</h1>
+    
+    <section>
+        <h2>User Information</h2>
+        <ul>
+            <li><strong>Username:</strong> {{ user.username }}</li>
+            <li><strong>Email:</strong> {{ user.email }}</li>
+        </ul>
+    </section>
+
+    {% if contact_details %}
+        <section>
+            <h2>Contact Information</h2>
+            <ul>
+                <li><strong>Phone Number:</strong> {{ contact_details.phone_number }}</li>
+                <li><strong>Address:</strong> {{ contact_details.address }}</li>
+                <!-- Add other contact details as needed -->
+            </ul>
+        </section>
+    {% else %}
+        <p>Contact details not available.</p>
+    {% endif %}
+    
+    <!-- Add additional content or features as needed -->
+
+{% endblock %}
