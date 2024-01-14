@@ -1,6 +1,8 @@
 # NFC Contact Webapp
 
-The "NFCContactShare" web application facilitates contact information sharing through NFC (Near Field Communication) technology. Admins generate NFC tags, each associated with a unique UUID. Users receive physical NFC tags and, upon reading, are directed to the application. If the UUID is linked to a user, their contact details are displayed; if not, users are guided to sign up. Admins manage tags through the admin dashboard.
+The "NFCContactShare" web application facilitates contact information sharing through NFC (Near Field Communication) technology. 
+Admins generate NFC tags, each associated with a unique UUID. Users receive physical NFC tags and, upon reading, are directed to the application. 
+If the UUID is linked to a user, their contact details are displayed; if not, users are guided to sign up. Admins manage tags through the admin dashboard.
 
 
 ## Project Structure
