@@ -4,39 +4,6 @@ The "NFCContactShare" web application facilitates contact information sharing th
 Admins generate NFC tags, each associated with a unique UUID. Users receive physical NFC tags and, upon reading, are directed to the application. 
 If the UUID is linked to a user, their contact details are displayed; if not, users are guided to sign up. Admins manage tags through the admin dashboard.
 
-
-## Project Structure
-
--- project structure
-your_project/
-|-- app/
-|   |-- __init__.py
-|   |-- admin_routes.py
-|   |-- main_routes.py
-|   |-- models.py
-|   |-- tag_routes.py
-|   |-- user_routes.py 
-|   |-- templates/
-|   |   |-- admin/
-|   |       |-- dashboard.html
-|   |   |-- main/
-|   |       |-- index.html
-|   |   |-- user/
-|   |       |-- contact_details.html
-|   |       |-- login.html
-|   |       |-- signup.html
-|   |       |-- user_dashboard.html
-|   |-- static/
-|   |   |-- css/
-|   |       |-- your_styles.css
-|   |   |-- js/
-|   |       |-- minimal-theme-switcher.js
-|-- venv/
-|-- config.py
-|-- app.py
-|-- requirements.txt
-
-
 ## Setup and Installation
 
 1. Clone the repository to your local machine.
