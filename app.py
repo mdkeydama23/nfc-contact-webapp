@@ -1,6 +1,5 @@
 # app.py
-from app import create_app, db
-from app.models import AdminUser
+from app import create_app
 
 
 app = create_app()

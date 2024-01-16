@@ -7,6 +7,7 @@ from app.models import User, TagID, ContactDetails
 # Blueprint for user-related routes
 user_bp = Blueprint('user', __name__, url_prefix='/user')
 
+
 @user_bp.route('/contact_details/<username>')
 def contact_details(username):
     """
@@ -27,8 +28,9 @@ def contact_details(username):
     return render_template('user/contact_details.html', user=user, contact_details=contact_details)
 
 
+@user_bp.route('/signup/<uuid>', methods=['GET', 'POST'])
 @user_bp.route('/signup', methods=['GET', 'POST'])
-def signup():
+def signup(uuid=None):
     """
     Handle the user signup process.
 
@@ -43,30 +45,37 @@ def signup():
         password = request.form.get('password')
         first_name = request.form.get('first_name')
         last_name = request.form.get('last_name')
+        uuid = request.form.get('uuid')
 
         # Check if the username is already taken
-        if User.query.filter_by(username=username).first():
-            flash('Username is already taken. Please choose another.', 'danger')
-            return redirect(url_for('user.signup'))
+        check_validity_username(username)
 
         # Check if the email is already taken
-        if User.query.filter_by(email=email).first():
-            flash('Email is already taken. Please choose another.', 'danger')
-            return redirect(url_for('user.signup'))
+        check_validity_email(email)
 
         # Create a new user and associate a tag ID with the user
         new_user = User(username=username, email=email, first_name=first_name, last_name=last_name)
         new_user.set_password(password)
+        db.session.add(new_user)
 
         # Generate a unique tag (UUID)
-        unique_tag = str(uuid.uuid4())
-        new_tag = TagID(tag_id=unique_tag, user=new_user)
-        db.session.add_all([new_user, new_tag])
+        tag = TagID.query.filter_by(tag_id=uuid).first()
+        tag.user_id = new_user.user_id
+        
         db.session.commit()
-
+        
         flash('User created successfully!', 'success')
-        return redirect(url_for('user.contact_details', username=username))
 
+        # Log in the newly created user
+        login_user(new_user)
+
+        contact_details = ContactDetails(user_id=new_user.user_id) 
+
+        return redirect(url_for('user.dashboard', username=username, contact_details=contact_details))
+    
+    if uuid is not None:
+        return render_template('user/signup.html', uuid=uuid)
+    
     return render_template('user/signup.html')
 
 
@@ -86,17 +95,20 @@ def login():
         password = request.form.get('password')
         user = User.query.filter_by(username=username).first()
 
+        contact_details = ContactDetails(user_id=user.user_id) 
+
+
         if user and user.check_password(password=password):
             login_user(user)
             flash('Logged in successfully!', 'success')
-            return redirect(url_for('user.user_dashboard'))
+            return redirect(url_for('user.dashboard', username=user.username, contact_details=contact_details))
         else:
             flash('Login failed. Check your username and password.', 'danger')
 
     return render_template('user/login.html')
 
 
-@user_bp.route('/user_dashboard')
+@user_bp.route('/dashboard')
 @login_required
 def user_dashboard():
     """
@@ -105,7 +117,7 @@ def user_dashboard():
     Displays options for editing contact details and other user-related actions.
     Requires the user to be logged in.
     """
-    return render_template('user/user_dashboard.html', user=current_user)
+    return render_template('user/dashboard.html', user=current_user)
 
 
 user_bp.route('/edit_contact_details', methods=['POST'])
@@ -135,7 +147,7 @@ def edit_contact_details():
         else:
             flash('Contact details not found.', 'danger')
 
-    return redirect(url_for('user.user_dashboard'))
+    return redirect(url_for('user.dashboard'))
 
 
 
@@ -151,3 +163,23 @@ def logout():
     logout_user()
     flash('Logged out successfully!', 'success')
     return redirect(url_for('main.home'))
+
+
+
+
+# Helper functions
+
+def check_validity_username(username):
+    
+    # Check if the username is already taken
+    if User.query.filter_by(username=username).first():
+        flash('Username is already taken. Please choose another.', 'danger')
+        return redirect(url_for('user.signup'))
+
+
+def check_validity_email(email):
+    
+    # Check if the email is already taken
+    if User.query.filter_by(email=email).first():
+        flash('Email is already taken. Please choose another.', 'danger')
+        return redirect(url_for('user.signup'))

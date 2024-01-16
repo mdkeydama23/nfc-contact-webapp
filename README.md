@@ -2,39 +2,6 @@
 
 The "NFCContactShare" web application facilitates contact information sharing through NFC (Near Field Communication) technology. Admins generate NFC tags, each associated with a unique UUID. Users receive physical NFC tags and, upon reading, are directed to the application. If the UUID is linked to a user, their contact details are displayed; if not, users are guided to sign up. Admins manage tags through the admin dashboard.
 
-
-## Project Structure
-
--- project structure
-your_project/
-|-- app/
-|   |-- __init__.py
-|   |-- admin_routes.py
-|   |-- main_routes.py
-|   |-- models.py
-|   |-- tag_routes.py
-|   |-- user_routes.py 
-|   |-- templates/
-|   |   |-- admin/
-|   |       |-- dashboard.html
-|   |   |-- main/
-|   |       |-- index.html
-|   |   |-- user/
-|   |       |-- contact_details.html
-|   |       |-- login.html
-|   |       |-- signup.html
-|   |       |-- user_dashboard.html
-|   |-- static/
-|   |   |-- css/
-|   |       |-- your_styles.css
-|   |   |-- js/
-|   |       |-- minimal-theme-switcher.js
-|-- venv/
-|-- config.py
-|-- app.py
-|-- requirements.txt
-
-
 ## Setup and Installation
 
 1. Clone the repository to your local machine.
@@ -45,13 +12,13 @@ your_project/
 
 ## Usage
 
-1. **Admins generate NFC tags**.
+1. **Admins generate NFC tags**, on /admin/dashboard
 2. **Users read NFC tags**, leading to "/tag/{uuid}" route.
 3. **Application checks UUID association**:
    - If associated, redirects to "/user/contact_details/{username}".
    - If not, redirects to user signup.
 4. **Users sign up**, associating the NFC tag UUID.
-5. **After signup/login**, users manage contact details on "/user/user_dashboard".
+5. **After signup/login**, users manage contact details on "/user/dashboard".
 
 ## Tech Stack
 

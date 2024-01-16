@@ -46,7 +46,7 @@ def dashboard():
     Requires the admin to be logged in.
     """
     # Retrieve the list of generated tags for the admin user
-    tags = TagID.query.filter_by(user_id=None).all()
+    tags = TagID.query.all()
     return render_template('admin/dashboard.html', tags=tags)
 
 

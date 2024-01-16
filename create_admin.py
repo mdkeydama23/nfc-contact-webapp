@@ -1,7 +1,6 @@
 # create_admin.py
 from app import create_app, db
 from app.models import AdminUser
-from werkzeug.security import generate_password_hash
 
 app = create_app()
 
