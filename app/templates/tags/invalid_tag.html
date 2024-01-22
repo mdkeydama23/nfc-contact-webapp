@@ -1,0 +1,17 @@
+<!-- templates/tag/invalid_tag.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Invalid Tag{% endblock %}
+
+{% block content %}
+    <h1>Invalid Tag</h1>
+    <p>{{ get_flashed_messages(category_filter=['danger'])[0] }}</p>
+
+    <script>
+        // JavaScript snippet to delay redirection
+        setTimeout(function() {
+            window.location.href = "{{ url_for('main.home') }}";
+        }, 3000);  // Set the delay time in milliseconds
+    </script>
+{% endblock %}

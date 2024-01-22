@@ -8,44 +8,41 @@
     <!-- Add Pico.css stylesheet -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <!-- additional styles -->
-    
 </head>
 
-<body>
-    <div class="container-fluid">
-        <span>NFC Contact Share</span>
+<body class="container">
+    <nav>
         <ul>
-          <li>
-              <a href="{{ url_for('main.home') }}" class="contrast">Home</a>
-          </li>
-          {% if not current_user.is_authenticated %}
-          <li>
-              <a href="{{ url_for('user.login') }}" class="contrast">Login</a>
-          </li>
-          {% else %}
-          <li>
-              <a href="{{ url_for('user.logout') }}" class="contrast">Logout</a>
-          </li>
-          {% endif %}
+          <li><strong>NFC Contact Share</strong></li>
+        </ul>
+        <ul>
+            <li><a href="{{ url_for('main.home') }}" class="contrast">Home</a></li>
+            {% if not current_user.is_authenticated %}
+            <li>
+                <a href="{{ url_for('user.login') }}" class="contrast">Login</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{{ url_for('user.logout') }}" class="contrast">Logout</a>
+            </li>
+            {% endif %}
+            
+        </ul>
+      </nav>
+    
 
-          <li>
-                <a href="{{ url_for('user.signup') }}" class="contrast">Sign Up</a>
-          </li>
-      </ul>
-    </div>
-
-    <div class="container">
+    <div class="container-fluid ">
         {% block content %}{% endblock %}
     </div>
 
     <div class="footer">
-        &copy; 2024 NFC Contact Share
+        <div class="container">
+            &copy; 2024 NFC Contact Share
+        </div>
     </div>
 
-    <!--  additional scripts-->
+    <!-- additional scripts -->
     <script src="{{ url_for('static', filename='js/minimal-theme-switcher.js') }}"></script>
-
-
 </body>
 
 </html>

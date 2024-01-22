@@ -8,6 +8,6 @@ def home():
     """
     Render the homepage.
 
-    Displays a cover image and generic information about the company.
+    Displays a cover image and generic information about the NFC Contact Share application.
     """
     return render_template('main/index.html')

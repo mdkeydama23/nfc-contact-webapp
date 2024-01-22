@@ -8,15 +8,15 @@ from app.models import User, TagID, ContactDetails
 user_bp = Blueprint('user', __name__, url_prefix='/user')
 
 
-@user_bp.route('/contact_details/<username>')
-def contact_details(username):
+@user_bp.route('/contact_details/<user_id>')
+def contact_details(user_id):
     """
     Render the contact details for the logged-in user or the user associated with the provided username.
 
     Does not require the user to be logged in.
     """
     # Retrieve the user based on the provided username or use the logged-in user
-    user = User.query.filter_by(username=username).first() or current_user
+    user = User.query.filter_by(user_id=user_id).first() or current_user
 
     if not user:
         flash('User not found.', 'danger')
@@ -110,14 +110,17 @@ def login():
 
 @user_bp.route('/dashboard')
 @login_required
-def user_dashboard():
+def dashboard():
     """
     Render the user dashboard.
 
     Displays options for editing contact details and other user-related actions.
     Requires the user to be logged in.
     """
-    return render_template('user/dashboard.html', user=current_user)
+
+    contact_details = ContactDetails(user_id=current_user.user_id)
+    
+    return render_template('user/dashboard.html', user=current_user, contact_details=contact_details )
 
 
 user_bp.route('/edit_contact_details', methods=['POST'])

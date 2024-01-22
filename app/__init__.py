@@ -14,6 +14,8 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
 
+    login_manager.login_view = 'user.login'
+
     # Register blueprints
     from app.admin_routes import admin_bp
     from app.main_routes import main_bp
@@ -26,3 +28,4 @@ def create_app():
     app.register_blueprint(tag_bp)
 
     return app
+ 
