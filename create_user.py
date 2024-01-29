@@ -6,7 +6,7 @@ app = create_app()
 
 with app.app_context():
     # Create a dummy user
-    dummy_user = User(username='dummy_user', email='dummy@example.com', first_name='Dummy', last_name='User')
+    dummy_user = User(username='dummy_user', email='dummy@example.com', first_name='Dummy', last_name='User', role='user')
 
     # Hash the password and store it
     dummy_user.set_password('password')

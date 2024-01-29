@@ -16,9 +16,7 @@ class Config:
     ADMIN_LOGIN_URL = '/admin/login'  # Update with your admin login route
     ADMIN_LOGIN_VIEW = 'admin.login'  # Update with the appropriate admin login view function
 
-    # Flask-WTF settings 
-    WTF_CSRF_ENABLED = True
-    WTF_CSRF_SECRET_KEY = '8ab83592b434b2e3e448e7813a4653a0'
+
 
     # Set this to True to enable debugging and auto-reload on code changes
     DEBUG = False

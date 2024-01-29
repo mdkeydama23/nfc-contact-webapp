@@ -16,7 +16,7 @@ def contact_details(user_id):
     Does not require the user to be logged in.
     """
     # Retrieve the user based on the provided username or use the logged-in user
-    user = User.query.filter_by(user_id=user_id).first() or current_user
+    user = User.query.filter_by(user_id=user_id).first() 
 
     if not user:
         flash('User not found.', 'danger')

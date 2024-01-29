@@ -2,47 +2,55 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} NFC Contact Share {% endblock %}</title>
-    <!-- Add Pico.css stylesheet -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <!-- additional styles -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %} eFBi {% endblock %}</title>
+  <!-- Add Pico.css stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+  <!-- additional styles -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon_io/favicon.ico') }}" type="image/x-icon">
+  <link rel="icon" href="{{ url_for('static', filename='favicon_io/favicon.ico') }}" type="image/x-icon">
+
+  {{ moment.include_moment() }}
+  <style>
+    html,
+    body {
+      height: 100vh;
+    }
+
+    body>footer {
+      position: sticky;
+      top: 100vh;
+    }
+  </style>
 </head>
 
 <body class="container">
-    <nav>
-        <ul>
-          <li><strong>NFC Contact Share</strong></li>
-        </ul>
-        <ul>
-            <li><a href="{{ url_for('main.home') }}" class="contrast">Home</a></li>
-            {% if not current_user.is_authenticated %}
-            <li>
-                <a href="{{ url_for('user.login') }}" class="contrast">Login</a>
-            </li>
-            {% else %}
-            <li>
-                <a href="{{ url_for('user.logout') }}" class="contrast">Logout</a>
-            </li>
-            {% endif %}
-            
-        </ul>
-      </nav>
-    
+  <nav>
+    <ul>
+      <li><strong>eFBi</strong></li>
+    </ul>
+    <ul>
+      <li><a href="{{ url_for('main.home') }}" class="contrast">Home</a></li>
+      {% if not current_user.is_authenticated %}
+      <li>
+        <a href="{{ url_for('user.login') }}" class="contrast">Login</a>
+      </li>
+      {% else %}
+      <li>
+        <a href="{{ url_for('user.logout') }}" class="contrast">Logout</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
 
-    <div class="container-fluid ">
-        {% block content %}{% endblock %}
-    </div>
+  <div class="container-fluid">{% block content %}{% endblock %}</div>
 
-    <div class="footer">
-        <div class="container">
-            &copy; 2024 NFC Contact Share
-        </div>
-    </div>
+  <footer class="container">
+    <p class="text-center">&copy; {{moment().format('YYYY')}} - eFBi</p>
+  </footer>
 
-    <!-- additional scripts -->
-    <script src="{{ url_for('static', filename='js/minimal-theme-switcher.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/minimal-theme-switcher.js') }}"></script>
 </body>
 
 </html>
