@@ -3,9 +3,23 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, current_user, logout_user, login_required
 from app import db
 from app.models import User, TagID, ContactDetails
+from functools import wraps
 
 # Blueprint for user-related routes
 user_bp = Blueprint('user', __name__, url_prefix='/user')
+
+# Decorator to require admin access
+def user_required(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_user():
+            flash('You are not authorized to access this page.', 'danger')
+            return redirect(url_for('main.home'))
+        return func(*args, **kwargs)
+    return decorated_function
+
+
+
 
 
 @user_bp.route('/contact_details/<user_id>')
@@ -87,7 +101,7 @@ def login():
     If the user is already authenticated, redirect to the user dashboard.
     If the form is submitted, validate the credentials and log in the user.
     """
-    if current_user.is_authenticated:
+    if current_user.is_authenticated and current_user.is_user():
         return redirect(url_for('user.contact_details', username=current_user.username))
 
     if request.method == 'POST':
@@ -95,12 +109,13 @@ def login():
         password = request.form.get('password')
         user = User.query.filter_by(username=username).first()
 
-        contact_details = ContactDetails(user_id=user.user_id) 
 
 
         if user and user.check_password(password=password):
             login_user(user)
             flash('Logged in successfully!', 'success')
+            contact_details = ContactDetails(user_id=user.user_id) 
+
             return redirect(url_for('user.dashboard', username=user.username, contact_details=contact_details))
         else:
             flash('Login failed. Check your username and password.', 'danger')
@@ -109,6 +124,7 @@ def login():
 
 
 @user_bp.route('/dashboard')
+@user_required
 @login_required
 def dashboard():
     """
@@ -124,6 +140,7 @@ def dashboard():
 
 
 user_bp.route('/edit_contact_details', methods=['POST'])
+@user_required  
 @login_required
 def edit_contact_details():
     """
