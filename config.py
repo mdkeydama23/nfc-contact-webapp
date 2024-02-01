@@ -1,8 +1,9 @@
 # config.py
+import os
 
 class Config:
-    SECRET_KEY = 'b81522c4d254ceab980967fcca020da3'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'  # Use your preferred database URI
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI =  os.environ.get('DATABASE_URL') # Use your preferred database URI
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Flask-Login settings
