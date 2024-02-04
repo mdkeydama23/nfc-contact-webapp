@@ -1,8 +1,8 @@
 from app import create_app, db
 app = create_app()
-app.app_context().push()
+with app.app_context():
 
 # Create the database tables
-db.create_all()
+    db.create_all()
 
 print('Database tables created succesfully.')
