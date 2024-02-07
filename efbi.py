@@ -14,3 +14,5 @@ def deploy():
         # Migrate database to latest revision
         upgrade()
 
+if __name__ == '__main__':
+    app.run()

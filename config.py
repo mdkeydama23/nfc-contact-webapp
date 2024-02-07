@@ -2,8 +2,8 @@
 import os
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') 
-    SQLALCHEMY_DATABASE_URI =  os.environ.get('JAWSDB_MARIA_URL')
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
+    SQLALCHEMY_DATABASE_URI =  os.environ.get('JAWSDB_MARIA_URL') or 'sqlite:///efbi.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Flask-Login settings
