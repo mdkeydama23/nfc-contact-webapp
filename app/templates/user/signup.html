@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 
+
+
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
+<main class="container">
     <h1>Sign Up</h1>
     <section>
-        <form method="post" action="{{ url_for('user.signup') }}">
+        <form method="post" action="{{ url_for('user.signup_form') }}">
             <!-- Add your signup form fields here -->
+
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required>
+
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
 
@@ -16,14 +26,7 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
 
-            <label for="first_name">First Name:</label>
-            <input type="text" id="first_name" name="first_name" required>
-
-            <label for="last_name">Last Name:</label>
-            <input type="text" id="last_name" name="last_name" required>
-
-            <label for="uuid">Tag UUID:</label>
-            <input type="text" id="uuid" name="uuid" value="{{uuid}}" required>
+            <input  type="hidden"  id="uuid" name="uuid" value="{{uuid}}" required readonly>
 
             <button type="submit">Sign Up</button>
         </form>
@@ -40,4 +43,5 @@
             {% endif %}
         {% endwith %}
     </section>
+</main>
 {% endblock %}

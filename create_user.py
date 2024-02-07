@@ -1,18 +1,11 @@
 # create_admin.py
 from app import create_app, db
-from app.models import User
+from app.models import User, TagID
 
 app = create_app()
 
 with app.app_context():
     # Create a dummy user
-    dummy_user = User(username='dummy_user', email='dummy@example.com', first_name='Dummy', last_name='User', role='user')
-
-    # Hash the password and store it
-    dummy_user.set_password('password')
-
-    # Add the dummy user to the session and commit it to the database
-    db.session.add(dummy_user)
-    db.session.commit()
+   tag_id = TagID(tag_id='1234567890', user_id=1)
 
 print("Dummy user created successfully!")

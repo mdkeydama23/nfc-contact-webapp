@@ -2,7 +2,7 @@
 from app import create_app, db
 from flask_migrate import Migrate, upgrade
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+app = create_app()
 migrate = Migrate(app, db)
 
 
@@ -10,5 +10,7 @@ migrate = Migrate(app, db)
 def deploy():
     """Run deployment tasks."""
     # migrate database to latest revision
-    upgrade()
+    with app.app_context():
+        # Migrate database to latest revision
+        upgrade()
 

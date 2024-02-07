@@ -3,8 +3,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_moment import Moment
-from flask_migrate import upgrade
+from flask_bcrypt import Bcrypt
 
+
+bcrypt = Bcrypt()
 db = SQLAlchemy()
 login_manager = LoginManager()
 moment = Moment()
@@ -29,7 +31,7 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
     moment.init_app(app)
-    upgrade()
+    bcrypt.init_app(app)    
 
 
     # Register blueprints

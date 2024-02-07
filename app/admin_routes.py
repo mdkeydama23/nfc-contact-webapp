@@ -17,12 +17,9 @@ def admin_required(func):
     def decorated_function(*args, **kwargs):
         if not current_user.is_admin():
             flash('You are not authorized to access this page.', 'danger')
-            return redirect(url_for('main.home'))
+            return render_template('error/401.html'), 401
         return func(*args, **kwargs)
     return decorated_function
-
-
-
 
 
 @admin_bp.route('/login', methods=['GET', 'POST'])
@@ -38,7 +35,7 @@ def login():
             return redirect(url_for('admin.dashboard'))
         else:
             flash('You are not authorized to access this page.', 'danger')
-            return redirect(url_for('main.home'))
+            return render_template('error/401.html'), 401
 
 
     if request.method == 'POST':

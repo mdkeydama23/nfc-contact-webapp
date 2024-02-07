@@ -1,15 +1,23 @@
 {% extends 'base.html' %}
 
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/custom_login.css') }}">
+
+{% endblock %}
+
+
 {% block title %}Contact Details{% endblock %}
 
 {% block content %}
+<main class="container">    
     <h1>Contact Details</h1>
     
     <section>
         <h2>User Information</h2>
         <ul>
-            <li><strong>Username:</strong> {{ user.username }}</li>
-            <li><strong>Email:</strong> {{ user.email }}</li>
+            <li><strong>Username:</strong> {{ user.first_name }}</li>
+            <li><strong>Email:</strong> {{ user.last_name }}</li>
         </ul>
     </section>
 
@@ -19,6 +27,10 @@
             <ul>
                 <li><strong>Phone Number:</strong> {{ contact_details.phone_number }}</li>
                 <li><strong>Address:</strong> {{ contact_details.address }}</li>
+                <li><strong>Description:</strong> {{ contact_details.description }}</li>
+                <li><strong>Linkedin:</strong> {{ contact_details.linkedin_profile_url }}</li>
+                <li><strong>Facebook:</strong> {{ contact_details.facebook_profile_url }}</li>
+                <li><strong>Whatsapp:</strong> {{ contact_details.whatsapp_profile_url }}</li>
                 <!-- Add other contact details as needed -->
             </ul>
         </section>
@@ -27,5 +39,5 @@
     {% endif %}
     
     <!-- Add additional content or features as needed -->
-
+</main>
 {% endblock %}

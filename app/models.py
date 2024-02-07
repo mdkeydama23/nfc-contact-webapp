@@ -1,10 +1,8 @@
-from flask_login import UserMixin
-from app import db, login_manager
-from flask_bcrypt import Bcrypt
+from flask_login import UserMixin, AnonymousUserMixin
+from app import db, login_manager, bcrypt   
 from sqlalchemy import DateTime
 from sqlalchemy.orm import validates    
 
-bcrypt = Bcrypt()
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -19,6 +17,7 @@ def load_user(user_id):
     """
     return User.query.get(int(user_id))
 
+
 class BaseModel(db.Model):
     """
     Base model to handle common fields for all database models.
@@ -30,6 +29,7 @@ class BaseModel(db.Model):
     __abstract__ = True
     created_at = db.Column(DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+
 
 class User(BaseModel, UserMixin):
     """
@@ -47,13 +47,13 @@ class User(BaseModel, UserMixin):
     - contact_details (ContactDetails): One-to-one relationship with ContactDetails model.
     """
     __tablename__ = 'user'
-    __table_args__ = (db.UniqueConstraint('user_id', 'email', name='unique_user_email'),)
+    __table_args__ = (db.UniqueConstraint('user_id', 'email', 'username', name='unique_user_email'),)
 
     user_id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255))
-    email = db.Column(db.String(255), unique=True)
-    username = db.Column(db.String(255), unique=True)
+    email = db.Column(db.String(255), unique=True, index=True)
+    username = db.Column(db.String(255), unique=True, index=True)
     password = db.Column(db.String(255))
     role = db.Column(db.String(20), default='user')  # 'user' or 'admin'
 
@@ -170,3 +170,18 @@ class TagID(BaseModel):
     tag_id = db.Column(db.String(36), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), unique=True)
     generated_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
+
+
+class AnonymousUser(AnonymousUserMixin):
+    """
+    Anonymous user class to handle unauthenticated users.
+
+    """
+
+    def is_user(self):
+        return False
+
+    def is_admin(self):
+        return False
+
+login_manager.anonymous_user = AnonymousUser

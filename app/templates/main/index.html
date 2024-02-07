@@ -2,7 +2,78 @@
 
 {% extends 'base.html' %}
 
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/custom_main_page.css') }}">
+
+{% endblock %}
+
 {% block content %}
-    <h1>Welcome to the Index Page</h1>
-    <p>This is the main index page.</p>
+<div class="hero" data-theme="dark">
+  <header class="container-fluid">
+    <hgroup>
+      <h1>eFBi</h1>
+      <h2>Make Contact Sharing Seamless</h2>
+    </hgroup>
+    <!--TODO put the link to the amazon page-->
+    <p><a href="https://amazon.com.tr" role="button">Order Online</a></p>
+  </header>
+
+</div>
+
+<main class="container" style="margin-top: 3rem;">
+  <div class="grid">
+    <section>
+      <hgroup>
+        <h2>What's eFBi?</h2>
+        <p></p>
+      </hgroup>
+      <p>
+        Easily exchange contact details with a simple tap! eFBi simplifies the way you share and manage your contact
+        information using NFC technology.
+        Whether you're networking at an event, meeting new people, or simply staying connected with friends, eFBi is the
+        perfect tool for hassle-free contact sharing.
+      </p>
+      <figure>
+        <img src="static/img/buisness-card.jpg" alt="eFbi Tag" />
+      </figure>
+      <h3>Manage Your Profile</h3>
+      <p>
+        Keep your contact information up-to-date within the app. Update your name, email, phone number,
+        Whatsapp, Telegram, Instagram, Facebook and more with ease.
+      </p>
+      <h3>How To Setup Your Account?</h3>
+      <p>
+        Getting started with eFBi couldn't be simpler! Begin by ordering your personalized NFC tag. Once it arrives,
+        simply scan the tag with your phone. You'll be seamlessly redirected to a personalized signup page on our web
+        app. Complete the signup process, including confirming your email account. Then, effortlessly enter your contact
+        details, such as your phone number, Facebook, LinkedIn, Instagram, and more. The next time you scan the NFC tag,
+        your contact details will be displayed seamlessly. Enjoy the ease and convenience of eFBi! Let's simplify
+        communication together.
+      </p>
+    </section>
+
+    <aside>
+      <a href="#" onclick="event.preventDefault()"><img src="static/img/tap-to-share.jpg" alt="tap to share"
+          width="1500" height="300" /></a>
+      <p>
+        <a href="#" onclick="event.preventDefault()">Tap to Share</a><br />
+        <small>Class aptent taciti sociosqu ad litora torquent per conubia nostra</small>
+      </p>
+      <a href="#" onclick="event.preventDefault()"><img src="static/img/user-friendly-interface.jpg" alt="Architecture "
+          width="1500" height="300" /></a>
+      <p>
+        <a href="#" onclick="event.preventDefault()">User-Friendly Interface</a><br />
+        <small>Our app's intuitive design ensures a seamless experience, making it easy for anyone to use.</small>
+      </p>
+      <a href="#" onclick="event.preventDefault()"><img src="static/img/secure-reliable.jpg" alt="Architecture"
+          width="1500" height="300" /></a>
+      <p>
+        <a href="#" onclick="event.preventDefault()">Secure and Reliable</a><br />
+        <small>Your information is safe with us. We use advanced security measures to protect your data and ensure
+          privacy.</small>
+      </p>
+    </aside>
+  </div>
+</main>
 {% endblock %}

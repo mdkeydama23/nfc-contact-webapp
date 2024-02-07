@@ -1,29 +1,45 @@
 {% extends 'base.html' %}
 
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/custom_login.css') }}">
+
+{% endblock %}
+
 {% block title %}User Dashboard{% endblock %}
 
+
+
 {% block content %}
-    <h1>User Dashboard</h1>
+<main class="container">
 
     <section>
-        <h2>Welcome, {{ user.username }}!</h2>
+        <h2>Welcome, {{ user.first_name }}!</h2>
         <p>Here you can manage your account and contact details.</p>
     </section>
 
     <section>
         <h2>Account Details</h2>
-        <form id="accountForm">
+        <form id="accountForm" method="post" >
             <!-- Display user account details -->
+            <label for="username">First Name:</label>
+            <input type="text" id="firstname" name="first_name" value="{{ user.first_name }}" readonly>
+
+            <label for="username">Last Name:</label>
+            <input type="text" id="lastname" name="username" value="{{ user.last_name }}" readonly>
+
+            
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" value="{{ user.username }}" readonly>
-            
+
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="{{ user.email }}" readonly>
-            
+
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" value="********" readonly>
 
-            <!-- Add other account details as needed -->
+
+
 
             <!-- Edit button to enable editing -->
             <button type="button" onclick="enableEditing('accountForm')">Edit</button>
@@ -32,18 +48,32 @@
 
     <section>
         <h2>Contact Details</h2>
-        <form id="contactForm">
+        <form id="contactForm" method="post" action="{{url_for('user.edit_contact_details')}}">
             <!-- Display user contact details -->
+
+            <label for="phoneNumber">Description:</label>
+            <textarea type="text" id="description" name="description" readonly> {{ contact_details.description }} </textarea>
+
+
             <label for="phoneNumber">Phone Number:</label>
             <input type="text" id="phoneNumber" name="phoneNumber" value="{{ contact_details.phone_number }}" readonly>
-            
+
             <label for="address">Address:</label>
-            <textarea id="address" name="address" readonly>{{ contact_details.address }}</textarea>
+            <input id="address" name="address" readonly value="{{ contact_details.address }}">
             
+            <label for="phoneNumber">Linkedin:</label>
+            <input type="text" id="linkedin_profile_url" name="linkedin_profile_url" value="{{ contact_details.linkedin_profile_url }}" readonly>
+
+            <label for="phoneNumber">Whatsapp:</label>
+            <input type="text" id="whatsapp_profile_url" name="whatsapp_profile_url" value="{{ contact_details.whatsapp_profile_url }}" readonly>
+
+            <label for="phoneNumber">Facebook:</label>
+            <input type="text" id="facebook_profile_url" name="facebook_profile_url" value="{{ contact_details.facebook_profile_url }}" readonly>
             <!-- Add other contact details as needed -->
 
             <!-- Edit button to enable editing -->
             <button type="button" onclick="enableEditing('contactForm')">Edit</button>
+            <button type="submit">Save</button>
         </form>
     </section>
 
@@ -64,5 +94,5 @@
             }
         }
     </script>
-
+</main>
 {% endblock %}
