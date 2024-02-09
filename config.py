@@ -17,7 +17,5 @@ class Config:
     ADMIN_LOGIN_URL = '/admin/login'  # Update with your admin login route
     ADMIN_LOGIN_VIEW = 'admin.login'  # Update with the appropriate admin login view function
 
-
-
     # Set this to True to enable debugging and auto-reload on code changes
     DEBUG = False
