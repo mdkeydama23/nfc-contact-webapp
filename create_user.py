@@ -6,6 +6,6 @@ app = create_app()
 
 with app.app_context():
     # Create a dummy user
-   tag_id = TagID(tag_id='1234567890', user_id=1)
+    user = User(username='dummy', password='dummy', email="---x@xxxxxxx.xxx", role='user')
 
 print("Dummy user created successfully!")

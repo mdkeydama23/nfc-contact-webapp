@@ -6,10 +6,10 @@ app = create_app()
 
 with app.app_context():
     # Create a new instance of AdminUser
-    admin = User(username='furkan_bcn', email='zendro@example.com', role='admin')
+    admin = User(username='----', email='----@example.com', role='admin')
 
     # Hash the password and store it
-    admin.set_password('Admin!@#123')
+    admin.set_password('-----')
 
     # Add the new admin to the session and commit it to the database
     db.session.add(admin)
