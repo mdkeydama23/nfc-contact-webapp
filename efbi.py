@@ -13,6 +13,3 @@ def deploy():
     with app.app_context():
         # Migrate database to latest revision
         upgrade()
-
-if __name__ == '__main__':
-    app.run(debug=True)
