@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Yaldevi
+- Font Author: Copyright 2021 The Yaldevi Project Authors (https://github.com/mooniak/yaldevi-font)
+- Font Source: http://fonts.gstatic.com/s/yaldevi/v12/cY9afj6VW0NMrDWtDNzCOwlPMq9SLpdxJzvobxLCBJkS.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

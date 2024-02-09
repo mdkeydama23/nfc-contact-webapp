@@ -1,36 +1,45 @@
-<!-- app/templates/admin/login.html -->
-
 {% extends 'base.html' %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/custom_login.css') }}">
+
+{% endblock %}
 
 {% block title %}Admin Login{% endblock %}
 
 {% block content %}
-    <h1>Admin Login</h1>
-    <section>
-        <form method="post" action="{{ url_for('admin.login') }}">
-            <!-- Add your login form fields here -->
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+<main class="container">
+  <article class="grid">
+    <div>
+      <hgroup>
+        <h1>Login</h1>
+        <p>Manage Users and Tags</p>
+      </hgroup>
+      <form method="post" action="{{ url_for('admin.login') }}">
+        <input type="text" name="username" placeholder="Username" aria-label="Username" autocomplete="username"
+          required />
+        <input type="password" name="password" placeholder="Password" aria-label="Password"
+          autocomplete="current-password" required />
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+        <button type="submit" class="contrast">Login</button>
+      </form>
+    </div>
+    <div></div>
+  </article>
 
-            <button type="submit">Login</button>
-        </form>
-    </section>
-
-    <section>
+  <section>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-      <ul class="flash-messages">
-        {% for category, message in messages %}
-          <li class="{{ category }}">{{ message }}</li>
-        {% endfor %}
-      </ul>
+    <ul class="flash-messages">
+      {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
     {% endif %}
-  {% endwith %}
-    </section>
-    
+    {% endwith %}
+  </section>
+</main>
+
+
 {% endblock %}
-
-

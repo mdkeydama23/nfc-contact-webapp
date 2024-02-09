@@ -1,8 +1,7 @@
 # app/tag_routes.py
 
 from flask import Blueprint, flash, redirect, url_for, render_template
-from app.models import TagID, User, ContactDetails
-from app.user_routes import signup
+from app.models import TagID
 
 # Blueprint for tag-related routes
 tag_bp = Blueprint('tag', __name__, url_prefix='/tag')
@@ -22,10 +21,7 @@ def handle_tag(uuid):
 
     if tag.user_id:
         # Tag is associated with a user, redirect to their contact details
-        user = User.query.get(tag.user_id)
-        contact_details = ContactDetails.query.filter_by(user_id=user.user_id).first()
-
-        return redirect(url_for('user.contact_details', user_id=tag.user_id, contact_details=contact_details))
+        return redirect(url_for('user.contact_details', tag_id=tag.tag_id))
     else:
         # Tag is not associated with a user, redirect to sign-up page with UUID autofilled
-        return signup(uuid=uuid)
+        return redirect(url_for('user.signup', uuid=tag.tag_id))

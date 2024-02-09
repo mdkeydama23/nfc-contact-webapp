@@ -1,42 +1,58 @@
 {% extends 'base.html' %}
 
-{% block content %}
-    <h1>Admin Dashboard</h1>
 
-    <!-- Generate ID button -->
-    <a href="{{ url_for('admin.generate_tag') }}" class="btn">Generate ID</a>
-    
-    <section>
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/custom_login.css') }}">
+
+{% endblock %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<main class="container">
+  <h1>Admin Dashboard</h1>
+
+  <!-- Generate ID button -->
+  <a href="{{ url_for('admin.generate_tag') }}" class="btn">Generate ID</a>
+
+  <section>
     <!-- Display previously generated IDs in a table -->
     <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Creation Date</th>
-                <th>Associated User</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for tag in tags %}
-                <tr>
-                    <td>{{ tag.tag_id }}</td>
-                    <td>{{ tag.generated_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                    <td>{% if tag.user_id %}Yes{% else %}No{% endif %}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Creation Date</th>
+          <th>Associated User</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tag in tags %}
+        <tr>
+          <td>efbi.net/tag/{{ tag.tag_id }}</td>
+          <td>{{ tag.generated_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+          <td>{% if tag.user_id %}Yes{% else %}No{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
-    </section>  
+  </section>
 
-    <section>
+  <section>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-      <ul class="flash-messages">
-        {% for category, message in messages %}
-          <li class="{{ category }}">{{ message }}</li>
-        {% endfor %}
-      </ul>
+    <ul class="flash-messages">
+      {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
     {% endif %}
-  {% endwith %}
-</section>
+    {% endwith %}
+  </section>
+
+</main>
+
+
 {% endblock %}

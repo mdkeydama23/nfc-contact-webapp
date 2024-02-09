@@ -1,12 +1,12 @@
 # create_admin.py
 from app import create_app, db
-from app.models import AdminUser
+from app.models import User
 
 app = create_app()
 
 with app.app_context():
     # Create a new instance of AdminUser
-    admin = AdminUser(username='chuchu', email='zendro@example.com')
+    admin = User(username='chuchu', email='zendro@example.com', role='admin')
 
     # Hash the password and store it
     admin.set_password('password')
