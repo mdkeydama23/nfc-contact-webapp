@@ -5,6 +5,7 @@
   {% block head %}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="view-transition" content="same-origin" />
   <title>{% block title %} eFBi {% endblock %}</title>
   <!-- Add Pico.css stylesheet -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
@@ -37,6 +38,18 @@
     </ul>
 
     <ul>
+      {% if current_user.is_admin() %}
+      <li>
+        <a href="{{ url_for('admin.dashboard') }}" class="contrast">Dashboard</a>
+      </li>
+      {% elif current_user.is_user() %}
+      <li>
+        <a href="{{ url_for('user.dashboard') }}" class="contrast">Dashboard</a>
+      </li>
+      {% endif %} 
+
+
+
       {% if not current_user.is_authenticated %}
       <li>
         <a href="{{ url_for('user.login') }}" class="contrast">Login</a>
@@ -50,7 +63,7 @@
 
   </nav>
 
-  <div>{% block content %}{% endblock %}</div>
+  <div class="main-div">{% block content %}{% endblock %}</div>
 
   <footer class="container-fluid">
     <!--<small style="text-align: center;">
